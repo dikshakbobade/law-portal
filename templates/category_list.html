@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} - Law Portal{% endblock %}
+
+{% block content %}
+<h1>{{ category.name }} Laws</h1>
+<p>{{ category.description }}</p>
+
+<div class="list-group mt-4">
+    {% for law in laws %}
+    <a href="/law/{{ law.slug }}/" class="list-group-item list-group-item-action">
+        <h5>{{ law.title }}</h5>
+        <p>{{ law.summary|truncatewords:30 }}</p>
+        <small>Act: {{ law.act_number }} | Section: {{ law.section }}</small>
+    </a>
+    {% empty %}
+    <p>No laws in this category yet.</p>
+    {% endfor %}
+</div>
+
+<a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+{% endblock %}

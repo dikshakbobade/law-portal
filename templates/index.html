@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Welcome to Law Portal</h1>
+        <p class="lead">Browse laws by category or search for specific laws.</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Categories</h2>
+        <div class="row">
+            {% for category in categories %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ category.name }}</h5>
+                        <p class="card-text">{{ category.description }}</p>
+                        <a href="/category/{{ category.slug }}/" class="btn btn-primary">View Laws</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Recent Laws</h2>
+        <div class="list-group">
+            {% for law in recent_laws %}
+            <a href="/law/{{ law.slug }}/" class="list-group-item list-group-item-action">
+                <h5>{{ law.title }}</h5>
+                <p>{{ law.summary|truncatewords:30 }}</p>
+                <small>Category: {{ law.category.name }}</small>
+            </a>
+            {% empty %}
+            <p>No laws added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

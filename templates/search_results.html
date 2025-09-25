@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results - Law Portal{% endblock %}
+
+{% block content %}
+<h1>Search Results</h1>
+{% if query %}
+<p>Results for: <strong>{{ query }}</strong></p>
+<p>Found {{ result_count }} result(s)</p>
+{% endif %}
+
+<div class="list-group mt-4">
+    {% for law in results %}
+    <a href="/law/{{ law.slug }}/" class="list-group-item list-group-item-action">
+        <h5>{{ law.title }}</h5>
+        <p>{{ law.summary|truncatewords:30 }}</p>
+        <small>Category: {{ law.category.name }}</small>
+    </a>
+    {% empty %}
+    <p>No results found. Try different keywords.</p>
+    {% endfor %}
+</div>
+
+<a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+{% endblock %}

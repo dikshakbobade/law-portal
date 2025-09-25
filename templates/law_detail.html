@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ law.title }} - Law Portal{% endblock %}
+
+{% block content %}
+<h1>{{ law.title }}</h1>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5>Summary</h5>
+        <p>{{ law.summary }}</p>
+        
+        <h5>Full Text</h5>
+        <p>{{ law.full_text }}</p>
+        
+        <h5>Details</h5>
+        <ul>
+            <li><strong>Act Number:</strong> {{ law.act_number }}</li>
+            <li><strong>Section:</strong> {{ law.section }}</li>
+            <li><strong>Category:</strong> {{ law.category.name }}</li>
+            <li><strong>Jurisdiction:</strong> {{ law.jurisdiction }}</li>
+            <li><strong>Keywords:</strong> {{ law.keywords }}</li>
+        </ul>
+    </div>
+</div>
+
+<div class="mt-4">
+    <h5>Related Laws</h5>
+    <div class="list-group">
+        {% for related in related_laws %}
+        <a href="/law/{{ related.slug }}/" class="list-group-item list-group-item-action">
+            {{ related.title }}
+        </a>
+        {% empty %}
+        <p>No related laws found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<a href="/category/{{ law.category.slug }}/" class="btn btn-secondary mt-3">Back to {{ law.category.name }}</a>
+{% endblock %}
