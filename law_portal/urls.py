@@ -1,13 +1,12 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('laws.urls')),
-]
+    path('', views.index, name='index'),
+    path('category/<slug:slug>/', views.category_list, name='category_detail'),
+    path('law/<slug:slug>/', views.law_detail, name='law_detail'),
+    path('search/', views.search, name='search'),
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # 🚨 Temporary URL for superuser creation
+    path('create-admin-temp/', views.create_admin_user, name='create_admin'),
+]
